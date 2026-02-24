@@ -59,4 +59,24 @@ jobs:
 
       - name: Check Laravel version
         run: php artisan --version
+
+      - name: Configure DB for CI
+        run: |
+          php -r "file_put_contents('.env', preg_replace('/DB_CONNECTION=.*/', 'DB_CONNECTION=mysql', file_get_contents('.env')));"
+          php -r "file_put_contents('.env', preg_replace('/DB_HOST=.*/', 'DB_HOST=127.0.0.1', file_get_contents('.env')));"
+          php -r "file_put_contents('.env', preg_replace('/DB_PORT=.*/', 'DB_PORT=3306', file_get_contents('.env')));"
+          php -r "file_put_contents('.env', preg_replace('/DB_DATABASE=.*/', 'DB_DATABASE=test_db', file_get_contents('.env')));"
+          php -r "file_put_contents('.env', preg_replace('/DB_USERNAME=.*/', 'DB_USERNAME=root', file_get_contents('.env')));"
+          php -r "file_put_contents('.env', preg_replace('/DB_PASSWORD=.*/', 'DB_PASSWORD=password', file_get_contents('.env')));"
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..10}; do
+            mysqladmin ping -h 127.0.0.1 -ppassword && break
+            echo "Waiting for MySQL..."
+            sleep 3
+          done
+
+      - name: Run migrations
+        run: php artisan migrate --force
       
