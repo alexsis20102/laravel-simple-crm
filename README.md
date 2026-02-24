@@ -1,3 +1,5 @@
+![CI](https://github.com/alexsis20102/laravel-simple-crm/actions/workflows/ci.yml/badge.svg)
+
 # 🚀 Simple CRM — Laravel Backend System
 
 Modern client and contact management system built with Laravel.  
