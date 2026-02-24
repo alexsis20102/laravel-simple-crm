@@ -42,7 +42,7 @@ This repository represents a transition from procedural PHP development to a mod
 ## 🧱 Technical Stack
 
 ### Backend
-- PHP 8+
+- PHP >= 8.4
 - Laravel 12
 - Eloquent ORM
 - Enum-based domain modeling
@@ -88,7 +88,88 @@ This project was created to demonstrate:
 
 ## ⚙️ Installation
 
+This project can be installed locally using the same steps as the CI pipeline.
 
+### 1 Requirements
+
+- PHP ≥ 8.4  
+- Composer  
+- Node.js ≥ 20  
+- MySQL 8  
+- Git  
+
+---
+
+### 2 Clone repository
+
+```bash
+git clone https://github.com/alexsis20102/laravel-simple-crm.git
+cd simple-crm
+```
+
+### 3 Install dependencies:
+
+```bash
+composer install
+```
+
+### 4 Configure environment:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 5 Configure database in .env:
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_user
+DB_PASSWORD=your_password
+
+### 6 Run database migrations:
+
+```bash
+php artisan migrate
+```
+
+### 7 Install frontend dependencies:
+
+```bash
+npm install
+```
+
+### 8 Build frontend assets:
+
+```bash
+npm run build
+```
+
+Development mode:
+
+```bash
+npm run dev
+```
+
+### 9 Run application:
+
+```bash
+php artisan serve
+```
+Open in browser: http://127.0.0.1:8000
+
+## 📌 Project Purpose
+
+This project was created as a portfolio application demonstrating:
+
+- modern Laravel architecture
+- relational data modeling
+- SPA-like interface
+- CI/CD pipeline
+- automated testing
+- reproducible environment setup
 
 ---
 
