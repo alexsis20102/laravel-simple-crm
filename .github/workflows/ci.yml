@@ -48,3 +48,14 @@ jobs:
       - name: Test MySQL connection
         run: |
           mysql -h 127.0.0.1 -uroot -ppassword -e "SHOW DATABASES;"
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare Laravel environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Check Laravel version
+        run: php artisan --version
