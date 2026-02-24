@@ -11,7 +11,7 @@ class ClientsContactsController extends Controller
 {
     public function index(Request $request)
     {
-        // -------- Валидация параметров --------
+        
         $validated = $request->validate([
             'page'      => 'nullable|integer|min:1',
             'per_page'  => 'nullable|integer|min:5|max:100',
@@ -20,7 +20,7 @@ class ClientsContactsController extends Controller
             'direction' => 'nullable|string|in:asc,desc',
         ]);
 
-        // -------- Параметры по умолчанию --------
+        // -------- Default Settings --------
         $perPage   = $validated['per_page']  ?? 10;
         $sort      = $validated['sort']      ?? 'id';
         $direction = $validated['direction'] ?? 'desc';
@@ -32,7 +32,7 @@ class ClientsContactsController extends Controller
             ->with(['client:id,first_name,last_name'])
             ->select('id', 'client_id', 'user_id', 'first_name', 'last_name', 'phone', 'email', 'type', 'created_at', 'updated_at');
 
-        // -------- Поиск --------
+        // -------- Search --------
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
@@ -53,15 +53,15 @@ class ClientsContactsController extends Controller
             });
         }
 
-        // -------- Сортировка --------
+        // -------- Sorting --------
        
         $query->orderBy($sort, $direction);
        
 
-        // -------- Пагинация --------
+        // -------- Pagination --------
         $contacts = $query->paginate($perPage)->withQueryString();
 
-        // -------- Ответ --------
+        // -------- Answer --------
 
         return response()->json([
             'success' => true,

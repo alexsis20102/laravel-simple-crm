@@ -13,7 +13,7 @@ class ClientsController extends Controller
 
     public function index(Request $request)
     {
-        // -------- Валидация параметров --------
+        // -------- Parameter validation --------
         $validated = $request->validate([
             'page'      => 'nullable|integer|min:1',
             'per_page'  => 'nullable|integer|min:5|max:100',
@@ -22,7 +22,7 @@ class ClientsController extends Controller
             'direction' => 'nullable|string|in:asc,desc',
         ]);
 
-        // -------- Параметры по умолчанию --------
+        // -------- Default Settings --------
         $perPage   = $validated['per_page']  ?? 10;
         $sort      = $validated['sort']      ?? 'id';
         $direction = $validated['direction'] ?? 'desc';
@@ -33,7 +33,7 @@ class ClientsController extends Controller
             ->with(['user:id,name'])
             ->select('id', 'user_id', 'first_name', 'last_name', 'email', 'phone', 'status', 'created_at');
 
-        // -------- Поиск --------
+        // -------- Search --------
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
@@ -47,15 +47,15 @@ class ClientsController extends Controller
             });
         }
 
-        // -------- Сортировка --------
+        // -------- Sorting --------
        
         $query->orderBy($sort, $direction);
         
 
-        // -------- Пагинация --------
+        // -------- Pagination --------
         $users = $query->paginate($perPage)->withQueryString();
 
-        // -------- Ответ --------
+        // -------- Answer --------
 
         return response()->json([
             'success' => true,
