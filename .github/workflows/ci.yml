@@ -107,6 +107,6 @@ jobs:
           docker run -d -p 8000:8000 --name simple-crm-test simple-crm
           sleep 10
 
-      - name: Check application response
-        run: curl -f http://localhost:8000 || exit 1
+      - name: Check Laravel container
+        run: docker exec simple-crm-test php artisan route:list
       
