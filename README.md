@@ -86,6 +86,133 @@ This project was created to demonstrate:
 
 ---
 
+## 🐳 Run with Docker
+
+The application can be fully started using Docker.  
+This will launch:
+
+- Laravel (PHP-FPM)
+- Nginx web server
+- MySQL database
+- phpMyAdmin database manager
+
+No local PHP or MySQL installation is required.
+
+---
+
+### 📦 Requirements
+
+- Docker Desktop  
+- Docker Compose  
+
+---
+
+### 🚀 First start
+
+Build and start containers:
+
+```bash
+docker compose up -d --build
+```
+
+The first build may take several minutes.
+
+---
+
+### 🌐 Access application
+
+Laravel app:  
+http://localhost:8000
+
+phpMyAdmin:  
+http://localhost:8080
+
+---
+
+### 🔑 Database access
+
+Inside containers Laravel connects automatically using:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=simple_crm
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+```env
+ADMIN_NAME: Administrator
+ADMIN_EMAIL: admin@crm.test
+ADMIN_PASSWORD: admin
+```
+
+phpMyAdmin login:
+
+Server: db  
+Username: root  
+Password: root  
+
+---
+
+### 🗄️ Database migrations
+
+Migrations run automatically when the container starts.
+
+If you need to run them manually:
+
+```bash
+docker compose exec app php artisan migrate
+```
+
+---
+
+### 🛑 Stop containers
+
+```bash
+docker compose down
+```
+
+Remove containers with volumes:
+
+```bash
+docker compose down -v
+```
+
+---
+
+### 🔄 Rebuild environment
+
+If dependencies or Docker configuration changed:
+
+```bash
+docker compose down -v
+docker compose up -d --build
+```
+
+---
+
+### 📁 Project structure (Docker related)
+
+```
+docker/
+  nginx/
+    default.conf
+  start.sh
+Dockerfile
+docker-compose.yml
+```
+
+---
+
+### ⚙️ What Docker provides
+
+- isolated environment  
+- automatic database setup  
+- automatic migrations  
+- consistent configuration across machines  
+- production-like architecture  
+
 ## ⚙️ Installation
 
 This project can be installed locally using the same steps as the CI pipeline.

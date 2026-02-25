@@ -11,7 +11,7 @@ Route::get('/', [AuthController::class, 'Index'])->name('home');
 
 Route::get('/password-request', [AuthController::class, 'Password_Request'])->name('password.request');
 
-Route::get('/dashboard', [AuthController::class, 'Dashboard'])->name('dashboard')->middleware(['auth', 'verified']);
+Route::get('/dashboard', [AuthController::class, 'Dashboard'])->name('dashboard')->middleware(['auth']);
 
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 
