@@ -91,7 +91,7 @@ jobs:
           DB_PASSWORD: password
         run: php artisan test
 
-  docker-build:
+  docker-run:
     runs-on: ubuntu-latest
     needs: check-environment
 
@@ -101,4 +101,12 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t simple-crm .
+
+      - name: Run container
+        run: |
+          docker run -d -p 8000:8000 --name simple-crm-test simple-crm
+          sleep 10
+
+      - name: Check application response
+        run: curl -f http://localhost:8000 || exit 1
       
