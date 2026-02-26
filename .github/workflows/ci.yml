@@ -100,11 +100,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
-        run: docker build -t simple-crm .
+        run: docker build -t simple_crm .
 
       - name: Run container
         run: |
-          docker run -d -p 8000:8000 --name simple-crm-test simple-crm
+          docker run -d -p 8000:8000 --name simple-crm-test simple_crm
           sleep 10
 
       - name: Check Laravel container
@@ -117,8 +117,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/simple-crm:latest .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/simple_crm:latest .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/simple-crm:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/simple_crm:latest
       
