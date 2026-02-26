@@ -21,6 +21,13 @@ if [ ! -f /var/www/public_volume/index.php ]; then
   cp -r /var/www/public/* /var/www/public_volume/
 fi
 
+cd /var/www
+
+if [ ! -f .env ]; then
+  echo "Creating .env..."
+  cp .env.example .env
+fi
+
 echo "Running migrations..."
 php artisan migrate --force
 
