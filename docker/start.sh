@@ -28,6 +28,17 @@ if [ ! -f .env ]; then
   cp .env.example .env
 fi
 
+
+echo "Checking APP_KEY..."
+
+if [ -z "$APP_KEY" ] || ! grep -q "^APP_KEY=base64" .env 2>/dev/null; then
+  echo "Generating APP_KEY..."
+  php artisan key:generate --force
+else
+  echo "APP_KEY already exists"
+fi
+
+
 echo "Running migrations..."
 php artisan migrate --force
 
