@@ -80,7 +80,7 @@ class ClientsController extends Controller
        
     }
 
-    public function edit(\App\Models\Clients $client)
+    public function edit(\App\Models\clients $client)
     {
         return view('static.dashboard.clients.edit-form', [
             'client' => $client,
@@ -92,7 +92,7 @@ class ClientsController extends Controller
         return view('static.dashboard.clients.create-form');
     }
 
-    public function update(Request $request, \App\Models\Clients $client)
+    public function update(Request $request, \App\Models\clients $client)
     {
         $validated = $request->validate([
             'first_name' => ['required','string','max:100'],
@@ -120,7 +120,7 @@ class ClientsController extends Controller
             'phone'      => ['nullable', 'string', 'max:30'],
         ]);
 
-        Clients::create($validated);
+        clients::create($validated);
 
         return response()->json([
             'success' => true,
@@ -129,7 +129,7 @@ class ClientsController extends Controller
     }
 
 
-    public function destroy(\App\Models\Clients $client)
+    public function destroy(\App\Models\clients $client)
     {
         $client->delete();
 
@@ -139,7 +139,7 @@ class ClientsController extends Controller
         ]);
     }
 
-    public function show(\App\Models\Clients $client)
+    public function show(\App\Models\clients $client)
     {
         $client->load([
             'user:id,name',

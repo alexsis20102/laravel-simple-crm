@@ -95,7 +95,7 @@ class ClientsContactsController extends Controller
     public function create()
     {
 
-        $clients = \App\Models\Clients::select('id', 'first_name', 'last_name')->get();
+        $clients = \App\Models\clients::select('id', 'first_name', 'last_name')->get();
 
         return view('static.dashboard.contacts.create-form', compact('clients'));
     }
@@ -111,7 +111,7 @@ class ClientsContactsController extends Controller
             'type' => ['required', new Enum(ContactType::class)],
         ]);
 
-        Contacts::create($validated);
+        contacts::create($validated);
 
         return response()->json([
             'success' => true,
@@ -119,7 +119,7 @@ class ClientsContactsController extends Controller
         ]);
     }
 
-    public function destroy(\App\Models\Contacts $Contact)
+    public function destroy(\App\Models\contacts $Contact)
     {
         $Contact->delete();
 
@@ -129,14 +129,14 @@ class ClientsContactsController extends Controller
         ]);
     }
 
-    public function edit(\App\Models\Contacts $Contact)
+    public function edit(\App\Models\contacts $Contact)
     {
         return view('static.dashboard.contacts.edit-form', [
             'contact' => $Contact,
         ]);
     }
 
-    public function update(Request $request, \App\Models\Contacts $Contact)
+    public function update(Request $request, \App\Models\contacts $Contact)
     {
         $validated = $request->validate([
             'first_name' => ['required','string','max:100'],

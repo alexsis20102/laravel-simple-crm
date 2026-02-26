@@ -13,11 +13,20 @@ try {
   sleep 2
 done
 
+if [ ! -f /var/www/public_volume/index.php ]; then
+  cp -r /var/www/public/* /var/www/public_volume/
+fi
+
 echo "Running migrations..."
 php artisan migrate --force
 
 echo "Seeding database..."
 php artisan db:seed --force
 
-echo "Starting Laravel server..."
-php artisan serve --host=0.0.0.0 --port=8000
+echo "Caching config..."
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+echo "Starting php-fpm..."
+exec php-fpm -F

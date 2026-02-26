@@ -112,7 +112,7 @@ No local PHP or MySQL installation is required.
 Build and start containers:
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
 The first build may take several minutes.
@@ -181,16 +181,6 @@ docker compose down -v
 
 ---
 
-### 🔄 Rebuild environment
-
-If dependencies or Docker configuration changed:
-
-```bash
-docker compose down -v
-docker compose up -d --build
-```
-
----
 
 ### 📁 Project structure (Docker related)
 
