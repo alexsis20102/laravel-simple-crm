@@ -131,6 +131,7 @@ class ClientsController extends Controller
 
     public function destroy(\App\Models\clients $client)
     {
+        $client->contacts()->delete();
         $client->delete();
 
         return response()->json([

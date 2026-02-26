@@ -1,5 +1,9 @@
 #!/bin/sh
 
+echo "Fixing permissions..."
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
+
 echo "Waiting for MySQL..."
 
 until php -r "
